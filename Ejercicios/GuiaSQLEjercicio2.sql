@@ -74,9 +74,9 @@ WHERE p.nombre is null;
 select * from producto where codigo_fabricante = (select codigo from fabricante where nombre ='lenovo');
 -- 2. Devuelve todos los datos de los productos que tienen el mismo precio que el producto más caro del fabricante Lenovo.
 -- (Sin utilizar INNER JOIN).
-INSERT INTO producto VALUES(12, 'Prueba precio max lenovo', 559, 2); -- se inserta para hacer la prueba de la proxima query
+INSERT INTO producto VALUES(13, 'Prueba precio max lenovo', 559, 3); -- se inserta para hacer la prueba de la proxima query
 DELETE FROM producto WHERE codigo=12;
-select * from producto where precio=(select max(precio) from producto where codigo_fabricante=2);
+select * from producto where precio=(select max(precio) from producto where codigo_fabricante=(select codigo from fabricante where nombre = 'lenovo'));
 -- 3. Lista el nombre del producto más caro del fabricante Lenovo.
 select nombre from producto where precio = (select max(precio) from producto where codigo_fabricante=2);
 -- 4. Lista todos los productos del fabricante Asus que tienen un precio superior al precio medio de todos sus productos.
