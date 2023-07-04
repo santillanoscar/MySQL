@@ -79,10 +79,15 @@ DELETE FROM producto WHERE codigo=12;
 select * from producto where precio=(select max(precio) from producto where codigo_fabricante=(select codigo from fabricante where nombre = 'lenovo'));
 -- 3. Lista el nombre del producto más caro del fabricante Lenovo.
 select nombre from producto where precio = (select max(precio) from producto where codigo_fabricante=2);
+
 -- 4. Lista todos los productos del fabricante Asus que tienen un precio superior al precio medio de todos sus productos.
-INSERT INTO producto VALUES(13, 'Prueba precio media Asus', 296, 1); -- se inserta para hacer la prueba de la proxima query
+INSERT INTO producto VALUES(13, 'Prueba precio media Asus', 244, 1); -- se inserta para hacer la prueba de la proxima query
 DELETE FROM producto WHERE codigo=13;
-select *, (select avg(precio) from producto) as media from producto where precio > (select avg(precio) from producto) and codigo_fabricante=1; 
+
+select *, (select avg(precio) from producto where codigo_fabricante = 1) as media_Precio_Asus 
+from producto 
+where precio > (select avg(precio) from producto where codigo_fabricante = (select codigo from fabricante where nombre = 'asus'))
+ and codigo_fabricante=(select codigo from fabricante where nombre = 'asus');
 
 -- ** Subconsultas con IN y NOT IN **
 
